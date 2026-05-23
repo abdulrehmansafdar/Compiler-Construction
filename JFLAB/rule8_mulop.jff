@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--Created with JFLAP 7.1.-->
+<!--Rule 8: Mulop NFA  *  /  div  mod  and-->
+<structure>
+	<type>fa</type>
+	<automaton>
+		<!--The list of states.-->
+		<state id="0" name="q0">
+			<x>50</x>
+			<y>300</y>
+			<initial/>
+		</state>
+		<state id="1" name="STAR">
+			<x>300</x>
+			<y>50</y>
+			<final/>
+		</state>
+		<state id="2" name="SLASH">
+			<x>300</x>
+			<y>150</y>
+			<final/>
+		</state>
+		<state id="3" name="q3">
+			<x>250</x>
+			<y>270</y>
+		</state>
+		<state id="4" name="q4">
+			<x>430</x>
+			<y>270</y>
+		</state>
+		<state id="5" name="DIV">
+			<x>620</x>
+			<y>270</y>
+			<final/>
+		</state>
+		<state id="6" name="q6">
+			<x>250</x>
+			<y>390</y>
+		</state>
+		<state id="7" name="q7">
+			<x>430</x>
+			<y>390</y>
+		</state>
+		<state id="8" name="MOD">
+			<x>620</x>
+			<y>390</y>
+			<final/>
+		</state>
+		<state id="9" name="q9">
+			<x>250</x>
+			<y>510</y>
+		</state>
+		<state id="10" name="q10">
+			<x>430</x>
+			<y>510</y>
+		</state>
+		<state id="11" name="AND">
+			<x>620</x>
+			<y>510</y>
+			<final/>
+		</state>
+		<!--The list of transitions.-->
+		<transition>
+			<from>0</from>
+			<to>1</to>
+			<read>*</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>2</to>
+			<read>/</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>3</to>
+			<read>d</read>
+		</transition>
+		<transition>
+			<from>3</from>
+			<to>4</to>
+			<read>i</read>
+		</transition>
+		<transition>
+			<from>4</from>
+			<to>5</to>
+			<read>v</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>6</to>
+			<read>m</read>
+		</transition>
+		<transition>
+			<from>6</from>
+			<to>7</to>
+			<read>o</read>
+		</transition>
+		<transition>
+			<from>7</from>
+			<to>8</to>
+			<read>d</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>9</to>
+			<read>a</read>
+		</transition>
+		<transition>
+			<from>9</from>
+			<to>10</to>
+			<read>n</read>
+		</transition>
+		<transition>
+			<from>10</from>
+			<to>11</to>
+			<read>d</read>
+		</transition>
+	</automaton>
+</structure>
