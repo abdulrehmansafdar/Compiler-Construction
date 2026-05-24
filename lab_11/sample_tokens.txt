@@ -1,0 +1,10 @@
+# Sample tokens for testing the recursive descent parser
+# Each line is a token tuple: (TOKEN_TYPE, VALUE)
+# Example: ('PROGRAM', 'program')
+
+# A minimal Pascal program:
+('PROGRAM', 'program')
+('ID', 'main')
+('SEMI', ';')
+('BEGIN', 'begin')
+('END', 'end')

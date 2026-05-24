@@ -1,0 +1,91 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{fancyvrb}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+
+\title{Lab 11 Test Report: Symbol Table Manager}
+\author{Abdul Rehman}
+\date{May 2026}
+
+\begin{document}
+\maketitle
+
+\section*{Objective}
+This lab implemented a hash-based symbol table manager for a Pascal subset. The main goals were to support identifier insertion, lookup, deletion, nested scopes, duplicate declaration detection, undeclared name detection, and parser integration.
+
+\section*{Implementation Summary}
+The symbol table is implemented in \texttt{symbol\_table.py} using separate chaining with a prime table size of 211. Each scope is represented as an independent hash table with a parent pointer. The parser integration is connected to the recursive descent parser from Lab 09, while the semantic driver \texttt{pascal\_semantic\_simulator.py} is used for focused testing.
+
+\section*{Test Cases and Results}
+\begin{enumerate}[leftmargin=*, itemsep=0.5em]
+    \item \textbf{Task 1: single-scope operations}
+    \begin{itemize}
+        \item 10 inserts, 5 lookups, and 3 deletes were executed successfully using \texttt{task1\_driver.py}.
+        \item Lookups included misses, and deletes correctly removed entries from the current scope.
+    \end{itemize}
+
+    \item \textbf{Valid nested scope program}
+\begin{Verbatim}[fontsize=\small]
+python lab_11/pascal_semantic_simulator.py lab_11/test_cases/valid_nested.pas
+\end{Verbatim}
+Expected: no semantic errors.
+Actual: passes with nested scope dumps, and all lookups resolve correctly.
+
+    \item \textbf{Duplicate declaration}
+\begin{Verbatim}[fontsize=\small]
+python lab_11/pascal_semantic_simulator.py lab_11/test_cases/duplicate_decl.pas
+\end{Verbatim}
+Expected: duplicate declaration error for \texttt{x}.
+Actual:
+\begin{Verbatim}[fontsize=\small]
+ERROR line 4: duplicate declaration 'x'
+\end{Verbatim}
+
+    \item \textbf{Undeclared variable use}
+\begin{Verbatim}[fontsize=\small]
+python lab_11/pascal_semantic_simulator.py lab_11/test_cases/undeclared_use.pas
+\end{Verbatim}
+Expected: undeclared variable error for \texttt{a}.
+Actual:
+\begin{Verbatim}[fontsize=\small]
+ERROR line 5: undeclared variable 'a'
+\end{Verbatim}
+
+    \item \textbf{Shadowing in nested scope}
+\begin{Verbatim}[fontsize=\small]
+python lab_11/pascal_semantic_simulator.py lab_11/test_cases/shadowing_valid.pas
+\end{Verbatim}
+Expected: inner \texttt{x} should shadow outer \texttt{x} inside the nested block.
+Actual: the inner declaration is used inside scope 2, and the outer declaration is restored after scope exit.
+\end{enumerate}
+
+\section*{Observed Output Summary}
+The output from the tested programs showed the following behavior:
+\begin{itemize}
+    \item Scope entry and exit messages were printed correctly.
+    \item Each scope was dumped in a formatted table at exit.
+    \item Duplicate declaration and undeclared variable errors were reported with line numbers.
+    \item Shadowing worked as expected, with lookup returning the nearest declaration.
+\end{itemize}
+
+\section*{Conclusion}
+The lab successfully demonstrates the use of a symbol table in a compiler front-end. The implementation meets the required operations for single-scope hashing, nested scope management, error detection for duplicate and undeclared names, and debug printing. The recursive descent parser integration provides a realistic path for semantic analysis in the final compiler project.
+
+\section*{Notes for Viva}
+Be ready to explain:
+\begin{itemize}
+    \item why a hash table with chaining was chosen,
+    \item the difference between \texttt{lookup\_current} and \texttt{lookup},
+    \item how shadowing works,
+    \item where \texttt{begin\_scope} and \texttt{end\_scope} are called,
+    \item and why the table size is a prime number.
+\end{itemize}
+
+\end{document}
